@@ -11,40 +11,28 @@ const substitutionModule = (function () {
   }
 
   function substitution(input, alphabet, encode = true) {
-    const LOWERCASE_A = 97;
-    const LOWERCASE_Z = 122;
-
+    const CONVERT_ARRAY_TO_UNI = 97;
     const loweredInput = input.toLowerCase();
     // Get rid of those nasty alphabets
     if (!alphabet || alphabet.length != 26 || typeof(alphabet) != 'string') return false;
     // Ensure there are no duplicates
     if(!detectDuplicate(alphabet.toLowerCase().split(""))) return false;
     
-    // check for encode 
-    if(encode){
-      let encoded = ''
-      for(let letter = 0; letter < loweredInput.length; letter++){
-        // if the letter isn't on the alphabet, assumed symbol or space
-        if(loweredInput.charCodeAt(letter) < LOWERCASE_A || loweredInput.charCodeAt(letter) > LOWERCASE_Z){
-          encoded += loweredInput[letter];
+    let message = '';
+
+    for(let char = 0; char < loweredInput.length; char++) {
+      if(loweredInput[char] == ' '){
+        message += loweredInput[char];
+      }else {
+        if(encode){
+          message += alphabet[loweredInput.charCodeAt(char) - CONVERT_ARRAY_TO_UNI]
         }else {
-          // unicode starts at 97 but our matrix starts at 0
-        encoded += alphabet[loweredInput.charCodeAt(letter)-97];
+          message += String.fromCharCode(alphabet.indexOf(loweredInput[char]) + CONVERT_ARRAY_TO_UNI)
         }
       }
-      return encoded
-    }else{
-      // decoding
-      let decoded = ''
-
-      for(let letter of loweredInput){
-        //if the given alphabet doesn't include the character it must be special character or space
-          !alphabet.includes(letter) ? decoded += letter : decoded += String.fromCharCode(alphabet.indexOf(letter) + 97);
-      }
-      return decoded;
     }
+    return message;
   }
-
   return {
     substitution,
   };

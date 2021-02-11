@@ -42,23 +42,23 @@ const polybiusModule = (function () {
       let encoded = "";
       
       // itereate through each letter
-      for (let letter = 0; letter < lowered.length; letter++) {
+      for (let letterIndex = 0; letterIndex < lowered.length; letterIndex++) {
         // itereate through each row
         for (let row = 0; row < alphabet.length; row++) {
           // itereate through each column
           for (let column = 0; column < alphabet[row].length; column++) {
             // find letter location
-            if (lowered[letter] == alphabet[row][column]) {
+            if (lowered[letterIndex] == alphabet[row][column]) {
               //reverse the keys because matrix logic != reading logic
               encoded += `${column + 1}${row + 1}`;
             }
           }
-          //detect if i or j is there a better way to do this?
+          //detect if i or j 
         }
-        if (lowered[letter] == "i" || lowered[letter] == "j") {
+        if (lowered[letterIndex] == "i" || lowered[letterIndex] == "j") {
           encoded += `42`;
-          //   //   //detect if a space and this as well
-        } else if (lowered[letter] == " ") {
+         //detect if a space and this as well
+        } else if (lowered[letterIndex] == " ") {
           encoded += " ";
         }
       }

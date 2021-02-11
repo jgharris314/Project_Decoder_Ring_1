@@ -19,23 +19,23 @@ describe("substitution", () => {
   });
   describe("encoding", () => {
     it("should ignore capital letters when encoding", () => {
-      const actual = substitution("Thinkful!", properAlpha);
-      const expected = "jrufscpw!";
+      const actual = substitution("Thinkful", properAlpha);
+      const expected = "jrufscpw";
 
       expect(actual).to.equal(expected);
     });
 
     it("should maintain proper spacing when encoding", () => {
-      const actual = substitution("space test!", properAlpha);
-      const expected = 11;
+      const actual = substitution("space test", properAlpha);
+      const expected = 10;
 
       expect(actual.length).to.equal(expected);
     });
   });
   describe("decoding", () => {
     it("should ignore capital letters when decoding", () => {
-      const actual = substitution("jrufs-cpw!", properAlpha, false);
-      const expected = "think-ful!";
+      const actual = substitution("jrufscpw", properAlpha, false);
+      const expected = "thinkful";
 
       expect(actual).to.equal(expected);
     });
